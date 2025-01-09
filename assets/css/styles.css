@@ -1,0 +1,97 @@
+body {
+  background-color: #333; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 80%;
+  max-width: 900px; /* Ancho máximo del contenedor principal */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: white;
+}
+
+.card {
+  background-color: #666; /* Gris más oscuro para la tarjeta */
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra más difuminada */
+  width: 350px;
+  margin-bottom: 30px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Espacio entre elementos */
+}
+
+label {
+  font-weight: bold;
+  color: #eee;
+}
+
+input[type="number"],
+select {
+  width: calc(100% - 12px);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #eee; /* Fondo claro para input y select */
+  color: #333;
+  box-sizing: border-box;
+}
+
+select {
+  appearance: none; /* Quita flecha predeterminada del select */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>"); /* Flecha personalizada */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+button {
+  background-color: #00bcd4; /* Color turquesa */
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0097a7; /* Turquesa más oscuro al pasar el ratón */
+}
+
+#resultado {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #afef0b;
+}
+
+#grafica {
+  width: 80%;
+  max-width: 800px;
+  height: 400px;
+  margin-bottom: 40px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
