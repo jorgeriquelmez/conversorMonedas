@@ -1,57 +1,66 @@
-const cantidadInput = document.getElementById('cantidad');
-const divisaSelect = document.getElementById('divisa');
-const buscarButton = document.getElementById('buscar');
-const resultadoDiv = document.getElementById('resultado');
-const graficaDiv = document.getElementById('grafica');
+const cantidadInput = document.getElementById("cantidad");
+const divisaSelect = document.getElementById("divisa");
+const buscarButton = document.getElementById("buscar");
+const resultadoDiv = document.getElementById("resultado");
+const graficaDiv = document.getElementById("grafica");
+let divisaSeleccionada = 0;
+let moneda = 0;
 
-buscarButton.addEventListener('click', () => {
-    const cantidad = parseFloat(cantidadInput.value);
-    const divisa = divisaSelect.value;
-
-    // Aquí iría la lógica para obtener el tipo de cambio desde una API
-    // Por ahora, usaremos valores fijos para demostración
-    const tiposDeCambio = {
-        USD: 1,
-        EUR: 0.85,
-        GBP: 0.73,
-    };
-
-    const tipoDeCambio = tiposDeCambio[divisa];
-
-    if (isNaN(cantidad)) {
-        resultadoDiv.textContent = "Ingrese una cantidad válida.";
-        return;
-    }
-
-    const resultado = cantidad / tipoDeCambio;
-    resultadoDiv.textContent = `Resultado: ${resultado.toFixed(2)}`;
-
-    // Ejemplo de cómo obtener datos de una API y mostrar una gráfica (usando fetch y una librería de gráficos como Chart.js)
-    fetch('URL_DE_TU_API') // Reemplaza con la URL de tu API
-        .then(response => response.json())
-        .then(data => {
-            // Aquí iría la lógica para procesar los datos de la API y crear la gráfica con Chart.js
-            // Ejemplo básico (asumiendo que la API devuelve un array de números):
-            const ctx = document.getElementById('grafica').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data.map((_, i) => i + 1), // Etiquetas del eje X (ejemplo: 1, 2, 3...)
-                    datasets: [{
-                        label: 'Datos de la API',
-                        data: data,
-                        borderColor: 'blue',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                  scales: {
-                    y: {
-                      beginAtZero: true
-                    }
-                  }
-                }
-            });
-        })
-        .catch(error => console.error('Error al obtener datos de la API:', error));
+divisaSelect.addEventListener("change", () => {
+  divisaSeleccionada = divisaSelect.value;
 });
+
+const api = async () => {
+  try {
+    const response = await fetch("https://mindicador.cl/api/");
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const selectOptions = async () => {
+  const data = await api();
+  if (divisaSeleccionada === "dolar") {
+    return data.dolar.valor;
+  } else if (divisaSeleccionada === "euro") {
+    return data.euro.valor;
+  } else if (divisaSeleccionada === "uf") {
+    return data.uf.valor;
+  } else {
+    console.log("no identificado");
+  }
+};
+
+buscarButton.addEventListener("click", async () => {
+  const cantidad = parseFloat(cantidadInput.value);
+  if (isNaN(cantidad)) {
+    resultadoDiv.textContent = "Ingrese una cantidad válida.";
+    return;
+  }
+  const moneda = await selectOptions();
+  if (moneda) {
+    const resultado = cantidad / moneda;
+    resultadoDiv.textContent = `Resultado: ${resultado.toFixed(2)}`;
+  }
+});
+
+// buscarButton.addEventListener("click", () => {
+//   const cantidad = parseFloat(cantidadInput.value);
+//   const divisa = divisaSelect.value;
+
+// //Se busca el valor en la api
+
+//   //Aqui se genera el resultado al tener los valores de la API mas lo tecleado
+//   const tipoDeCambio = tiposDeCambio[divisa];
+
+//   if (isNaN(cantidad)) {
+//     resultadoDiv.textContent = "Ingrese una cantidad válida.";
+//     return;
+// }
+// const resultado = cantidad / tipoDeCambio;
+// resultadoDiv.textContent = `Resultado: ${resultado.toFixed(2)}`;
+
+// });
