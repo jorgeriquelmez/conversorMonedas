@@ -13,7 +13,7 @@
       <div class="card">
           <div class="card-content">
               <label for="cantidad">Pesos CLP</label>
-              <input type="number" id="cantidad" value="0">
+              <input type="number" id="cantidad" value="">
 
               <label for="divisa">Moneda a convertir:</label>
               <select id="divisa">
@@ -29,7 +29,11 @@
           </div>
       </div>
 
-      <div id="grafica"></div>
+      <div class="grafica">
+        <canvas id="myChart"></canvas>
+        </div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </div>
   <script src="./assets/js/script.js"></script>
 
